@@ -1,5 +1,5 @@
-import confetti from 'canvas-confetti';
 import { DIFFICULTIES, GAME_MODES, PLAYER_BLACK, PLAYER_WHITE } from '../constants.js';
+import { getConfetti } from '../vendor/confetti.js';
 import { createLogger } from '../utils/logger.js';
 import { CanvasRenderer } from '../ui/canvasRenderer.js';
 import { HudPanel } from '../ui/hudPanel.js';
@@ -27,6 +27,7 @@ export class GameController {
     this.logger = logger ?? createLogger('GameController', 'info');
     this.saveLoadService = saveLoadService ?? new SaveLoadService({});
     this.replayService = replayService ?? new ReplayService(this.state, this.rules, { eventBus });
+    this.confetti = getConfetti();
 
     this.renderer = new CanvasRenderer(canvasId, this.state, { eventBus });
     this.hud = new HudPanel(hudContainer, {
@@ -85,7 +86,7 @@ export class GameController {
 
     this.eventBus.on('game:finished', ({ winner }) => {
       if (winner) {
-        confetti({ particleCount: 180, spread: 60, origin: { y: 0.4 } });
+        this.confetti({ particleCount: 180, spread: 60, origin: { y: 0.4 } });
       }
     });
   }
