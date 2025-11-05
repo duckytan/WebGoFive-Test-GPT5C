@@ -1,4 +1,3 @@
-import './styles/main.css';
 import { GAME_MODES, PLAYER_BLACK } from './constants.js';
 import { GameState } from './core/gameState.js';
 import { RuleEngine } from './core/ruleEngine.js';
